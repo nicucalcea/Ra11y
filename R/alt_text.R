@@ -2,8 +2,9 @@
 #'
 #' Pass a vector of colours and find out if they are colour-blind safe
 #'
-#' @param colours The colours you want to check
-#' @param mode The tests you want to perform
+#' @param plot_name The plot to check for alt text
+#' @param alt_text_loc Whether you want it displayed in the console, saved to file, or both
+#' @param save_filepath If above set to file, where do you want to save it?
 #'
 #' @examples
 #' test_colours(c("red", "green", "darkgreen"), mode = "protan")
@@ -19,8 +20,14 @@ check_alt_text <- function(plot_name, alt_text_loc = "console", save_filepath) {
 
   # If alt text hasn't been set
   if (!alt_text_set) {
+
+    # # Attempt an automatic description of the plot
+    # auto_alt <- BrailleR::VI(plot_name)
+    # auto_alt <- paste0(auto_alt$text, collapse = " ")
+
     # Nudge to write some alt text
     cli::cli_alert_danger('Did you forget to include alt text? You can do so in {.run labs(alt = "This is some text describing the chart.")}.')
+    # cli::cli_alert(paste0("Here\'s something to get you started: ", cli::style_italic(auto_alt)))
     # If alt text has been set
   } else {
     if (console) {

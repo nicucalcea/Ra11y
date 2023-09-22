@@ -7,9 +7,11 @@
 check_alt_text(plot_name, alt_text_loc = "console", save_filepath)
 }
 \arguments{
-\item{colours}{The colours you want to check}
+\item{plot_name}{The plot to check for alt text}
 
-\item{mode}{The tests you want to perform}
+\item{alt_text_loc}{Whether you want it displayed in the console, saved to file, or both}
+
+\item{save_filepath}{If above set to file, where do you want to save it?}
 }
 \description{
 Pass a vector of colours and find out if they are colour-blind safe
