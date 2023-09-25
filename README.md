@@ -4,6 +4,7 @@ Ra11y: A collection of accessibilty features for ggplot2 charts
 - [Colour blindness](#colour-blindness)
 - [Alt text](#alt-text)
 - [Contrast](#contrast)
+- [Todo](#todo)
 
 There are a few functions here that I wrote for personal/professional
 use. Feel free to use them or [suggest new
@@ -177,3 +178,8 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+# Todo
+
+- Check for minimum text size
+- Implement a contrast check for plots

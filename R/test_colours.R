@@ -9,9 +9,7 @@
 #' test_colourblind(c("red", "green", "darkgreen"), mode = "protan")
 #'
 #' @export
-# TODO: minimum text size
 # https://github.com/datawrapper/datawrapper/blob/58de8fd51c954cd03d7321c92667648a2a5fa514/services/app/src/lib/components/editor/ColorblindCheck.svelte#L37
-
 test_colourblind <- function(colours, mode = c("deutan", "protan", "tritan"), smallestPercievableDistance = 9.2, ratioThres = 5) {
 
   # Find combinations of all colours

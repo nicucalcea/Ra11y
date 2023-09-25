@@ -111,3 +111,8 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
   geom_tile() +
   geom_text(aes(label = Y, !!!autocontrast))
 ```
+
+# Todo
+
+- Check for minimum text size
+- Implement a contrast check for plots

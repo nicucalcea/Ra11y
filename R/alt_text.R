@@ -26,7 +26,7 @@ check_alt_text <- function(plot_name, alt_text_loc = "console", save_filepath) {
     # auto_alt <- paste0(auto_alt$text, collapse = " ")
 
     # Nudge to write some alt text
-    cli::cli_alert_danger('Did you forget to include alt text? You can do so in {.run labs(alt = "This is some text describing the chart.")}.')
+    cli::cli_alert_danger('Did you forget to include {.href [alt text](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81)}? You can do so in {.run labs(alt = "This is some text describing the chart.")}.')
     # cli::cli_alert(paste0("Here\'s something to get you started: ", cli::style_italic(auto_alt)))
     # If alt text has been set
   } else {

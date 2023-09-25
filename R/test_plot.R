@@ -25,7 +25,7 @@ test_plot <- function(plot, test = c("cvd", "alt")) {
       # display warning if something is wrong
       if (length(cvd_list) > 0) {
         cli::cli_h1("Colour blindness")
-        cli::cli_alert_danger("There may be issues with the following colour combinations:")
+        cli::cli_alert_danger("There may be issues with the following colour combinations, consider changing them:")
         cli::cli_ul(lapply(cvd_list, paste0, collapse = " — "))
         cli::cli_text("Run {.run colorblindr::cvd_grid()} for colour-deficiency simulations of your plot.")
       }
