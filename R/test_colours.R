@@ -25,10 +25,10 @@ test_colourblind <- function(colours, mode = c("deutan", "protan", "tritan"), sm
     # Compare how far apart they are
     dstNorm = khroma::compare(c(colour_1, colour_2))
 
-    # Check to see if the distance is too big
-    if (dstNorm < smallestPercievableDistance) {
-      print("Smalles percievable difference")
-    }
+    # # Check to see if the distance is too big
+    # if (dstNorm < smallestPercievableDistance) {
+    #   print("Smalles percievable difference")
+    # }
 
     # Function to compare colour blind versions of colours
     compare_cbv <- function(colour_1, colour_2, func) {
