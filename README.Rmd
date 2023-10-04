@@ -115,4 +115,4 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
 # Todo
 
 - Check for minimum text size
-- Implement a contrast check for plots
+- Implement a [contrast check for plots](https://marijohannessen.github.io/color-contrast-checker/)
