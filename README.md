@@ -46,7 +46,7 @@ starwars_plot <- starwars |>
 starwars_plot
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 This chart uses two colours, `red` and `darkgreen`. While those colours
 look very distinct to most people, they could look similar for some with
@@ -58,17 +58,8 @@ Let’s test that theory.
 test_plot(starwars_plot, test = "cvd") # CVD stands for Colour Vision Deficiency
 ```
 
-    ## 
-
-    ## ── Colour blindness ────────────────────────────────────────────────────────────
-
-    ## ✖ There may be issues with the following colour combinations:
-
-    ## • darkgreen — red
-
-    ## Run `colorblindr::cvd_grid()` for colour-deficiency simulations of your plot.
-
-If you run the suggested command (you’ll need a [separate
+![](README_files/figure-gfm//unnamed-chunk-5.svg)<!-- --> If you run the
+suggested command (you’ll need a [separate
 package](https://github.com/clauswilke/colorblindr) for that), you can
 see exactly where the problem is. The protanomaly version of the chart
 has nearly identical colours for both sets of dots.
@@ -77,7 +68,7 @@ has nearly identical colours for both sets of dots.
 colorblindr::cvd_grid(starwars_plot)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 You should change the colours to something a bit easier to
 differentiate.
@@ -100,11 +91,7 @@ alt text if you don’t have it, and displays it in the console if you do.
 test_plot(starwars_plot, test = "alt")
 ```
 
-    ## 
-
-    ## ── Alt text ────────────────────────────────────────────────────────────────────
-
-    ## ✖ Did you forget to include alt text? You can do so in `labs(alt = "This is some text describing the chart.")`.
+![](README_files/figure-gfm//unnamed-chunk-7.svg)<!-- -->
 
 Let’s add some alt text.
 
@@ -115,11 +102,7 @@ starwars_plot <- starwars_plot +
 test_plot(starwars_plot, test = "alt")
 ```
 
-    ## 
-
-    ## ── Alt text ────────────────────────────────────────────────────────────────────
-
-    ## ℹ Scatter plot of Star Wars characters, with height plotted on the x-axis and mass on the y-axis. The dots are coloured by gender. Generally-speaking, height and mass are correlated. The heaviest character is Jabba Desilijic Tiure.
+![](README_files/figure-gfm//unnamed-chunk-8.svg)<!-- -->
 
 My particular use case is to have a reminder to write good, descriptive
 alt text for charts that end up being published online.
@@ -130,21 +113,7 @@ Of course, you can run both tests in one go.
 test_plot(starwars_plot)
 ```
 
-    ## 
-
-    ## ── Colour blindness ────────────────────────────────────────────────────────────
-
-    ## ✖ There may be issues with the following colour combinations:
-
-    ## • darkgreen — red
-
-    ## Run `colorblindr::cvd_grid()` for colour-deficiency simulations of your plot.
-
-    ## 
-
-    ## ── Alt text ────────────────────────────────────────────────────────────────────
-
-    ## ℹ Scatter plot of Star Wars characters, with height plotted on the x-axis and mass on the y-axis. The dots are coloured by gender. Generally-speaking, height and mass are correlated. The heaviest character is Jabba Desilijic Tiure.
+![](README_files/figure-gfm//unnamed-chunk-9.svg)<!-- -->
 
 Additionally, I would recommend checking your plot’s spelling (including
 the alt text) with [`ggspell`](https://github.com/nicucalcea/ggspell).
@@ -177,7 +146,7 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
   geom_text(aes(label = Y, !!!autocontrast))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 # Todo
 

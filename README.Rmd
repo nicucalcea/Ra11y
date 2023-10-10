@@ -10,8 +10,25 @@ editor_options:
 
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+asciicast::init_knitr_engine(
+  echo = TRUE
+)
+```
+
+
+```{asciicast, setup, cache = FALSE, include = FALSE}
+library(ggplot2)
+library(Ra11y)
+
+starwars <- dplyr::starwars |> 
+  tidyr::drop_na(height, mass, gender)
+
+starwars_plot <- starwars |>
+  ggplot(aes(x = height, y = mass, colour = gender)) +
+  geom_point(size = 4) +
+  scale_colour_manual(values = c("red", "darkgreen"))
 ```
 
 There are a few functions here that I wrote for personal/professional use. Feel free to use them or [suggest new ones](https://github.com/nicucalcea/ggspell/issues).
@@ -52,7 +69,8 @@ This chart uses two colours, `red` and `darkgreen`. While those colours look ver
 
 Let's test that theory.
 
-```{r}
+```{asciicast, cache = TRUE}
+#' At: end
 test_plot(starwars_plot, test = "cvd") # CVD stands for Colour Vision Deficiency
 ```
 If you run the suggested command (you'll need a [separate package](https://github.com/clauswilke/colorblindr) for that), you can see exactly where the problem is. The protanomaly version of the chart has nearly identical colours for both sets of dots.
@@ -69,13 +87,13 @@ Note that the warning is just a suggestions, colours that are deemed unsafe coul
 
 `ggplot2` [has some rudimentary support](https://github.com/tidyverse/ggplot2/issues/4477) for [alt text](https://en.wikipedia.org/wiki/Alt_attribute). So far, it gets automatically embedded in R Markdown (what you're reading now) and Quarto documents and outputed to HTML. This function nudges you to add alt text if you don't have it, and displays it in the console if you do.
 
-```{r}
+```{asciicast, cache = TRUE}
 test_plot(starwars_plot, test = "alt")
 ```
 
 Let's add some alt text.
 
-```{r}
+```{asciicast, cache = TRUE}
 starwars_plot <- starwars_plot +
   labs(alt = paste0("Scatter plot of Star Wars characters, with height plotted on the x-axis and mass on the y-axis. The dots are coloured by gender. Generally-speaking, height and mass are correlated. The heaviest character is ", starwars$name[starwars$mass == max(starwars$mass)], "."))
 
@@ -86,7 +104,7 @@ My particular use case is to have a reminder to write good, descriptive alt text
 
 Of course, you can run both tests in one go.
 
-```{r}
+```{asciicast, cache = TRUE}
 test_plot(starwars_plot)
 ```
 
