@@ -1,15 +1,29 @@
-#' Print alt text to console
+#' @#' Print alt text to console
 #'
 #' Pass a vector of colours and find out if they are colour-blind safe
 #'
 #' @param plot_name The plot to check for alt text
 #' @param alt_text_loc Whether you want it displayed in the console, saved to file, or both
-#' @param save_filepath If above set to file, where do you want to save it?
-#'
+#' @param save_filepath If above set to file, where do you want to save it? #'
 #' @examples
-#' test_colours(c("red", "green", "darkgreen"), mode = "protan")
+#' check_alt_text(dplyr::starwars |>
+#'                ggplot2::ggplot(ggplot2::aes(x = height, y = mass)) +
+#'                ggplot2::geom_point() +
+#'                ggplot2::labs(alt = "This is some alt text"))
 #'
 #' @export
+#' @title Check alt text
+#' @description Check a ggplot for the presence of alt text
+#' @return Prints the alt text to console
+#' @details Alt text is important to accessibility. This function checks for the presence of alt text in a ggplot object, and returns the contents of alt text when relevant.
+#' @seealso
+#'  \code{\link[ggplot2]{get_alt_text}}
+#'  \code{\link[cli]{cli_h1}}, \code{\link[cli]{cli_alert}}
+#'  \code{\link[tools]{fileutils}}
+#' @rdname alt_text
+#' @importFrom ggplot2 get_alt_text
+#' @importFrom cli cli_h1 cli_alert_danger cli_alert_info
+#' @importFrom tools file_ext
 check_alt_text <- function(plot_name, alt_text_loc = "console", save_filepath) {
   alt_text <- ggplot2::get_alt_text(plot_name)
   alt_text_set = alt_text != ""

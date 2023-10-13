@@ -1,26 +1,47 @@
-#' Test plot for colour blindness
+#' @#' Test plot for colour blindness and alt text
 #'
-#' Find if a plot is colour-blind safe
+#' Find if a plot is colour-blind safe and return its alt text
 #'
 #' @param plot The plot you want to check
-#' @param mode The tests you want to perform
-#'
+#' @param test The tests you want to perform
 #' @examples
-#' test_plot(plot_name, mode = "protan")
+#' library(ggplot2)
+#' starwars <- dplyr::starwars |>
+#'   tidyr::drop_na(height, mass, gender)
+#'
+#' starwars_plot <- starwars |>
+#'   ggplot(aes(x = height, y = mass, colour = gender)) +
+#'   geom_point(size = 4) +
+#'   scale_colour_manual(values = c("red", "darkgreen"))
+#'
+#' test_plot(starwars_plot)
 #'
 #' @export
+#' @import ggplot2
+#' @import ggplot2
+#' @title Test plot for accessibility
+#' @description Find if a plot is colour-blind safe and return its alt text.
+#' @param test What test to run, Default: c("cvd", "alt")
+#' @return Prints potential accessibility issues to the console.
+#' @details Test plot for accessibility.
+#' @seealso
+#'  \code{\link[ggplot2]{ggplot_build}}
+#'  \code{\link[Ra11y]{test_colourblind}}, \code{\link[Ra11y]{check_alt_text}}
+#'  \code{\link[cli]{cli_h1}}, \code{\link[cli]{cli_alert}}, \code{\link[cli]{cli_ul}}, \code{\link[cli]{cli_text}}
+#' @rdname test_plot
+#' @importFrom ggplot2 ggplot_build
+#' @importFrom cli cli_h1 cli_alert_danger cli_ul cli_text
 test_plot <- function(plot, test = c("cvd", "alt")) {
 
   if ("cvd" %in% test) {
     # start by extracting colours and fills of the plot
     plot_build <- ggplot2::ggplot_build(plot)
-    # plot_colours <- unique(c(plot_build$data[[1]][["fill"]], plot_build$data[[1]][["colour"]], plot_build$data[[1]][["color"]]))
     plot_colours <- unique(unlist(lapply(plot_build$data, function(x) {try(c(x$colour, x$color, x$fill))})))
     plot_colours <- plot_colours[!is.na(plot_colours)]
 
     # test the colours for colour blindness
     if (length(plot_colours) > 1) {
-      cvd_list <- test_colourblind(colours = plot_colours)
+      cvd_list <- Ra11y::test_colourblind(colours = plot_colours)
 
       # display warning if something is wrong
       if (length(cvd_list) > 0) {
@@ -33,6 +54,6 @@ test_plot <- function(plot, test = c("cvd", "alt")) {
   }
 
   if ("alt" %in% test) {
-    check_alt_text(plot)
+    Ra11y::check_alt_text(plot)
   }
 }

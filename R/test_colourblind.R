@@ -1,19 +1,32 @@
-#' Test colours for colour blindness
+#' @#' Test colours for colour blindness
 #'
 #' Pass a vector of colours and find out if they are colour blind safe
 #'
 #' @param colours The colours you want to check
-#' @param mode The tests you want to perform
-#'
+#' @param mode The tests you want to perform #'
 #' @examples
 #' test_colourblind(c("red", "green", "darkgreen"), mode = "protan")
 #'
 #' @export
+#' @title Test colours for colour blindness
+#' @description Pass a vector of colours and find out if they are colour blind safe
+#' @param smallestPercievableDistance Smallest perceivable distance threshold, Default: 9.2
+#' @param ratioThres Ratio threshold, Default: 5
+#' @return Returns a message to the console if any colours used in a plot are potentially not colour-bind safe.
+#' @details Pass a vector of colours and find out if they are colour blind safe
+#' @seealso
+#'  \code{\link[utils]{combn}}
+#'  \code{\link[khroma]{compare}}
+#'  \code{\link[colorspace]{simulate_cvd}}
+#' @rdname test_colourblind
+#' @importFrom utils combn
+#' @importFrom khroma compare
+#' @importFrom colorspace deutan protan tritan
 # https://github.com/datawrapper/datawrapper/blob/58de8fd51c954cd03d7321c92667648a2a5fa514/services/app/src/lib/components/editor/ColorblindCheck.svelte#L37
 test_colourblind <- function(colours, mode = c("deutan", "protan", "tritan"), smallestPercievableDistance = 9.2, ratioThres = 5) {
 
   # Find combinations of all colours
-  colour_combo <- combn(unique(colours), 2)
+  colour_combo <- utils::combn(unique(colours), 2)
 
   # Test each combination
   for (i in 1:ncol(colour_combo)) {

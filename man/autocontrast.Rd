@@ -14,8 +14,12 @@ autocontrast
 Given a fill colour, return white or black so text is legible.
 }
 \examples{
-ggplot(df, aes(row, col, fill = value)) +
-                 geom_raster() +
-                 geom_text(aes(label = round(value, 2), !!!autocontrast))
+library(ggplot2)
+grid_data <- expand.grid(X = LETTERS[1:10], Y = paste0("var", seq(1, 10)))
+grid_data$Z <- runif(100, 0, 5)
+
+ggplot(grid_data, aes(X, Y, fill = Z)) +
+  geom_tile() +
+  geom_text(aes(label = Y, !!!autocontrast))
 }
 \keyword{datasets}

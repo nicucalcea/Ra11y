@@ -2,19 +2,43 @@
 % Please edit documentation in R/test_plot.R
 \name{test_plot}
 \alias{test_plot}
-\title{Test plot for colour blindness}
+\title{Test plot for accessibility}
 \usage{
 test_plot(plot, test = c("cvd", "alt"))
 }
 \arguments{
 \item{plot}{The plot you want to check}
 
-\item{mode}{The tests you want to perform}
+\item{test}{What test to run, Default: c("cvd", "alt")}
+}
+\value{
+Prints potential accessibility issues to the console.
 }
 \description{
-Find if a plot is colour-blind safe
+Find if a plot is colour-blind safe and return its alt text.
+}
+\details{
+#' Test plot for colour blindness and alt text
+
+Find if a plot is colour-blind safe and return its alt text
+
+Test plot for accessibility.
 }
 \examples{
-test_plot(plot_name, mode = "protan")
+library(ggplot2)
+starwars <- dplyr::starwars |>
+  tidyr::drop_na(height, mass, gender)
 
+starwars_plot <- starwars |>
+  ggplot(aes(x = height, y = mass, colour = gender)) +
+  geom_point(size = 4) +
+  scale_colour_manual(values = c("red", "darkgreen"))
+
+test_plot(starwars_plot)
+
+}
+\seealso{
+\code{\link[ggplot2]{ggplot_build}}
+ \code{\link[Ra11y]{test_colourblind}}, \code{\link[Ra11y]{check_alt_text}}
+ \code{\link[cli]{cli_h1}}, \code{\link[cli]{cli_alert}}, \code{\link[cli]{cli_ul}}, \code{\link[cli]{cli_text}}
 }

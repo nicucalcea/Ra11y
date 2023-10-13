@@ -8,6 +8,10 @@ contrast(colour, light_col = "white", dark_col = "black")
 }
 \arguments{
 \item{colour}{The colour to check.}
+
+\item{light_col}{The light output colour. Defaults to white.}
+
+\item{dark_col}{The dark output colour. Defaults to black.}
 }
 \description{
 Given a fill colour, return white or black so text is legible.
