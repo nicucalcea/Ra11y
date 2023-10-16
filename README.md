@@ -152,4 +152,10 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
 
 - Check for minimum text size
 - Implement a [contrast check for
-  plots](https://marijohannessen.github.io/color-contrast-checker/)
+  plots](https://marijohannessen.github.io/color-contrast-checker/).
+  Here’s an [example for
+  HTML](https://github.com/jasonday/color-contrast) and [one for
+  CSS](https://github.com/csstools/postcss-wcag-contrast).
+- Check if alt text is too short, too long, doesn’t contain certain
+  keywords (chart, graph, graphic, plot, etc.). Perhaps only activated
+  with a `strict` param.

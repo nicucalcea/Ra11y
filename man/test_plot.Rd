@@ -32,6 +32,7 @@ starwars <- dplyr::starwars |>
 starwars_plot <- starwars |>
   ggplot(aes(x = height, y = mass, colour = gender)) +
   geom_point(size = 4) +
+  geom_label(aes(label = name), colour = "red", fill = "pink") +
   scale_colour_manual(values = c("red", "darkgreen"))
 
 test_plot(starwars_plot)

@@ -12,6 +12,7 @@
 #' starwars_plot <- starwars |>
 #'   ggplot(aes(x = height, y = mass, colour = gender)) +
 #'   geom_point(size = 4) +
+#'   geom_label(aes(label = name), colour = "red", fill = "pink") +
 #'   scale_colour_manual(values = c("red", "darkgreen"))
 #'
 #' test_plot(starwars_plot)
@@ -33,9 +34,14 @@
 #' @importFrom cli cli_h1 cli_alert_danger cli_ul cli_text
 test_plot <- function(plot, test = c("cvd", "alt")) {
 
+  if (any(c("cvd", "contrast") %in% test)) {
+    plot_build <- ggplot2::ggplot_build(plot)
+  }
+
+
   if ("cvd" %in% test) {
     # start by extracting colours and fills of the plot
-    plot_build <- ggplot2::ggplot_build(plot)
+    # plot_build <- ggplot2::ggplot_build(plot)
     plot_colours <- unique(unlist(lapply(plot_build$data, function(x) {try(c(x$colour, x$color, x$fill))})))
     plot_colours <- plot_colours[!is.na(plot_colours)]
 
@@ -53,7 +59,38 @@ test_plot <- function(plot, test = c("cvd", "alt")) {
     }
   }
 
+
   if ("alt" %in% test) {
     Ra11y::check_alt_text(plot)
+  }
+
+
+  if ("contrast" %in% test) {
+
+    # Retrieve all geoms in the plot
+    plot_layers <- purrr::map(plot$layers, function(x) {x$constructor[[1]]})
+    # Get the indices of text layers
+    plot_layers_text <- which(plot_layers %in% c("geom_text", "ggplot2::geom_text", "geom_label", "ggplot2::geom_label"))
+
+    if (length(plot_layers_text) > 0) {
+
+      # Get a df of colours and their fills
+      plot_colours <- plot_build$data[[plot_layers_text]] |>
+        dplyr::select(tidyselect::any_of(c("colour", "fill")))
+
+      # Test if label colour is contrasting enough with its fill
+      if ("fill" %in% colnames(plot_colours)) {
+        plot_colours_distinct <- dplyr::distinct(plot_colours) |>
+          rowwise() |>
+          mutate(contrast_ratio = Ra11y::test_contrast(colour, fill),
+                 contrast_issue = contrast_ratio <= 4.5)
+
+        if (any(plot_colours_distinct$contrast_issue)) {
+          cli::cli_h1("Colour contrast")
+          cli::cli_alert_danger("There may be issues with colour contrast.")
+        }
+      }
+
+    }
   }
 }
