@@ -1,9 +1,10 @@
-#' @#' Test plot for colour blindness and alt text
+#' Test plot for colour blindness and alt text
 #'
 #' Find if a plot is colour-blind safe and return its alt text
 #'
 #' @param plot The plot you want to check
 #' @param test The tests you want to perform
+#' @param alt_text_loc Whether you want it displayed in the console, file, clipboard, or a combination
 #' @examples
 #' library(ggplot2)
 #' starwars <- dplyr::starwars |>
@@ -32,7 +33,7 @@
 #' @rdname test_plot
 #' @importFrom ggplot2 ggplot_build
 #' @importFrom cli cli_h1 cli_alert_danger cli_ul cli_text
-test_plot <- function(plot, test = c("cvd", "alt")) {
+test_plot <- function(plot, test = c("cvd", "alt"), alt_text_loc = c("console")) {
 
   if (any(c("cvd", "contrast") %in% test)) {
     plot_build <- ggplot2::ggplot_build(plot)
@@ -61,7 +62,8 @@ test_plot <- function(plot, test = c("cvd", "alt")) {
 
 
   if ("alt" %in% test) {
-    Ra11y::alt_text_check(plot)
+    Ra11y::alt_text_check(plot,
+                          alt_text_loc = alt_text_loc)
   }
 
 

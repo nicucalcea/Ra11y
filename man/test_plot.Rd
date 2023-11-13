@@ -4,12 +4,14 @@
 \alias{test_plot}
 \title{Test plot for accessibility}
 \usage{
-test_plot(plot, test = c("cvd", "alt"))
+test_plot(plot, test = c("cvd", "alt"), alt_text_loc = c("console"))
 }
 \arguments{
 \item{plot}{The plot you want to check}
 
 \item{test}{What test to run, Default: c("cvd", "alt")}
+
+\item{alt_text_loc}{Whether you want it displayed in the console, file, clipboard, or a combination}
 }
 \value{
 Prints potential accessibility issues to the console.
@@ -18,7 +20,7 @@ Prints potential accessibility issues to the console.
 Find if a plot is colour-blind safe and return its alt text.
 }
 \details{
-#' Test plot for colour blindness and alt text
+Test plot for colour blindness and alt text
 
 Find if a plot is colour-blind safe and return its alt text
 
