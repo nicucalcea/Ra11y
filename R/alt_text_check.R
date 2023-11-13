@@ -1,12 +1,12 @@
 #' @#' Print alt text to console
 #'
-#' Pass a vector of colours and find out if they are colour-blind safe
+#' Pass a plot to check whether it has alt text
 #'
 #' @param plot_name The plot to check for alt text
 #' @param alt_text_loc Whether you want it displayed in the console, saved to file, or both
 #' @param save_filepath If above set to file, where do you want to save it? #'
 #' @examples
-#' check_alt_text(dplyr::starwars |>
+#' alt_text_check(dplyr::starwars |>
 #'                ggplot2::ggplot(ggplot2::aes(x = height, y = mass)) +
 #'                ggplot2::geom_point() +
 #'                ggplot2::labs(alt = "This is some alt text"))
@@ -24,7 +24,7 @@
 #' @importFrom ggplot2 get_alt_text
 #' @importFrom cli cli_h1 cli_alert_danger cli_alert_info
 #' @importFrom tools file_ext
-check_alt_text <- function(plot_name, alt_text_loc = "console", save_filepath) {
+alt_text_check <- function(plot_name, alt_text_loc = "console", save_filepath) {
   alt_text <- ggplot2::get_alt_text(plot_name)
   alt_text_set = alt_text != ""
   console <- "console" %in% alt_text_loc
@@ -35,12 +35,9 @@ check_alt_text <- function(plot_name, alt_text_loc = "console", save_filepath) {
   # If alt text hasn't been set
   if (!alt_text_set) {
 
-    # # Attempt an automatic description of the plot
-    # auto_alt <- BrailleR::VI(plot_name)
-    # auto_alt <- paste0(auto_alt$text, collapse = " ")
-
     # Nudge to write some alt text
     cli::cli_alert_danger('Did you forget to include {.href [alt text](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81)}? You can do so in {.run labs(alt = "This is some text describing the chart.")}.')
+    cli::cli_alert_info("Run {.run Ra11y::alt_text_suggest({substitute(plot_name)})} to generate a draft alt text automatically.")
     # cli::cli_alert(paste0("Here\'s something to get you started: ", cli::style_italic(auto_alt)))
     # If alt text has been set
   } else {

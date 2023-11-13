@@ -3,6 +3,7 @@ Ra11y: A collection of accessibilty features for ggplot2 charts
 
 - [Colour blindness](#colour-blindness)
 - [Alt text](#alt-text)
+  - [Auto-generating alt text](#auto-generating-alt-text)
 - [Contrast](#contrast)
 - [Todo](#todo)
 
@@ -41,7 +42,9 @@ starwars <- dplyr::starwars |>
 starwars_plot <- starwars |>
   ggplot(aes(x = height, y = mass, colour = gender)) +
   geom_point(size = 4) +
-  scale_colour_manual(values = c("red", "darkgreen"))
+  scale_colour_manual(values = c("red", "darkgreen")) +
+  labs(title = "Jabba the Hutt outweighs the competion",
+       subtitle = "Height and mass of Star Wars characters")
 
 starwars_plot
 ```
@@ -96,10 +99,10 @@ test_plot(starwars_plot, test = "alt")
 Let’s add some alt text.
 
 ``` r
-starwars_plot <- starwars_plot +
+starwars_plot_with_alt <- starwars_plot +
   labs(alt = paste0("Scatter plot of Star Wars characters, with height plotted on the x-axis and mass on the y-axis. The dots are coloured by gender. Generally-speaking, height and mass are correlated. The heaviest character is ", starwars$name[starwars$mass == max(starwars$mass)], "."))
 
-test_plot(starwars_plot, test = "alt")
+test_plot(starwars_plot_with_alt, test = "alt")
 ```
 
 ![](README_files/figure-gfm//unnamed-chunk-8.svg)<!-- -->
@@ -110,13 +113,23 @@ alt text for charts that end up being published online.
 Of course, you can run both tests in one go.
 
 ``` r
-test_plot(starwars_plot)
+test_plot(starwars_plot_with_alt)
 ```
 
 ![](README_files/figure-gfm//unnamed-chunk-9.svg)<!-- -->
 
 Additionally, I would recommend checking your plot’s spelling (including
 the alt text) with [`ggspell`](https://github.com/nicucalcea/ggspell).
+
+## Auto-generating alt text
+
+You can also generate alt text automatically using ✨AI✨.
+
+``` r
+alt_text_suggest(starwars_plot)
+```
+
+    ## ℹ Scatter plot comparing the height and mass of Star Wars characters, with gender represented by color. Jabba Desilijic Tiure stands out as an outlier with a mass of 1358 and a height of 175.
 
 # Contrast
 
@@ -146,7 +159,7 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
   geom_text(aes(label = Y, !!!autocontrast))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 # Todo
 

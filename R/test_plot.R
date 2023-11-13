@@ -27,7 +27,7 @@
 #' @details Test plot for accessibility.
 #' @seealso
 #'  \code{\link[ggplot2]{ggplot_build}}
-#'  \code{\link[Ra11y]{test_colourblind}}, \code{\link[Ra11y]{check_alt_text}}
+#'  \code{\link[Ra11y]{test_colourblind}}, \code{\link[Ra11y]{alt_text_check}}
 #'  \code{\link[cli]{cli_h1}}, \code{\link[cli]{cli_alert}}, \code{\link[cli]{cli_ul}}, \code{\link[cli]{cli_text}}
 #' @rdname test_plot
 #' @importFrom ggplot2 ggplot_build
@@ -61,7 +61,7 @@ test_plot <- function(plot, test = c("cvd", "alt")) {
 
 
   if ("alt" %in% test) {
-    Ra11y::check_alt_text(plot)
+    Ra11y::alt_text_check(plot)
   }
 
 

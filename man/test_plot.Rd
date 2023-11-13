@@ -40,6 +40,6 @@ test_plot(starwars_plot)
 }
 \seealso{
 \code{\link[ggplot2]{ggplot_build}}
- \code{\link[Ra11y]{test_colourblind}}, \code{\link[Ra11y]{check_alt_text}}
+ \code{\link[Ra11y]{test_colourblind}}, \code{\link[Ra11y]{alt_text_check}}
  \code{\link[cli]{cli_h1}}, \code{\link[cli]{cli_alert}}, \code{\link[cli]{cli_ul}}, \code{\link[cli]{cli_text}}
 }

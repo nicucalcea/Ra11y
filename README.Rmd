@@ -28,7 +28,9 @@ starwars <- dplyr::starwars |>
 starwars_plot <- starwars |>
   ggplot(aes(x = height, y = mass, colour = gender)) +
   geom_point(size = 4) +
-  scale_colour_manual(values = c("red", "darkgreen"))
+  scale_colour_manual(values = c("red", "darkgreen")) +
+  labs(title = "Jabba the Hutt outweighs the competion",
+       subtitle = "Height and mass of Star Wars characters")
 ```
 
 There are a few functions here that I wrote for personal/professional use. Feel free to use them or [suggest new ones](https://github.com/nicucalcea/ggspell/issues).
@@ -60,7 +62,9 @@ starwars <- dplyr::starwars |>
 starwars_plot <- starwars |>
   ggplot(aes(x = height, y = mass, colour = gender)) +
   geom_point(size = 4) +
-  scale_colour_manual(values = c("red", "darkgreen"))
+  scale_colour_manual(values = c("red", "darkgreen")) +
+  labs(title = "Jabba the Hutt outweighs the competion",
+       subtitle = "Height and mass of Star Wars characters")
 
 starwars_plot
 ```
@@ -94,10 +98,10 @@ test_plot(starwars_plot, test = "alt")
 Let's add some alt text.
 
 ```{asciicast, cache = TRUE}
-starwars_plot <- starwars_plot +
+starwars_plot_with_alt <- starwars_plot +
   labs(alt = paste0("Scatter plot of Star Wars characters, with height plotted on the x-axis and mass on the y-axis. The dots are coloured by gender. Generally-speaking, height and mass are correlated. The heaviest character is ", starwars$name[starwars$mass == max(starwars$mass)], "."))
 
-test_plot(starwars_plot, test = "alt")
+test_plot(starwars_plot_with_alt, test = "alt")
 ```
 
 My particular use case is to have a reminder to write good, descriptive alt text for charts that end up being published online.
@@ -105,10 +109,18 @@ My particular use case is to have a reminder to write good, descriptive alt text
 Of course, you can run both tests in one go.
 
 ```{asciicast, cache = TRUE}
-test_plot(starwars_plot)
+test_plot(starwars_plot_with_alt)
 ```
 
 Additionally, I would recommend checking your plot's spelling (including the alt text) with [`ggspell`](https://github.com/nicucalcea/ggspell).
+
+## Auto-generating alt text
+
+You can also generate alt text automatically using ✨AI✨.
+
+```{r, cache = TRUE}
+alt_text_suggest(starwars_plot)
+```
 
 # Contrast
 
