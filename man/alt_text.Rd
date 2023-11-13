@@ -4,12 +4,12 @@
 \alias{alt_text_check}
 \title{Check alt text}
 \usage{
-alt_text_check(plot_name, alt_text_loc = "console", save_filepath)
+alt_text_check(plot_name, alt_text_loc = c("console"), save_filepath)
 }
 \arguments{
 \item{plot_name}{The plot to check for alt text}
 
-\item{alt_text_loc}{Whether you want it displayed in the console, saved to file, or both}
+\item{alt_text_loc}{Whether you want it displayed in the console, file, clipboard, or a combination}
 
 \item{save_filepath}{If above set to file, where do you want to save it? #'}
 }
