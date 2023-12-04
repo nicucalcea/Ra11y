@@ -172,3 +172,4 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
 - Check if alt text is too short, too long, doesn’t contain certain
   keywords (chart, graph, graphic, plot, etc.). Perhaps only activated
   with a `strict` param.
+- Test other AI models like [VisText](https://github.com/mitvis/vistext)

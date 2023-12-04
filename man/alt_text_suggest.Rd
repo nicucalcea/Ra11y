@@ -7,11 +7,11 @@
 alt_text_suggest(
   plot,
   prompt =
-    "Please generate a descriptive alt text for the the following ggplo2 chart, using the following formula: \\"Chart type (scatter plot, bar chart, line chart, etc.) + summary of the data (change in temperature, growth of sales, distribution of types of energy generation, etc.) + what is notable about the data (outliers, general trend, etc.).",
+    "Please generate a descriptive alt text for a chart using the information below. Use the following formula: \\"Chart type (scatter plot, bar chart, line chart, etc.) + summary of the data (change in temperature, growth of sales, distribution of types of energy generation, etc.) + what it shows and why is it interesting (general trend, interesting outliers, etc.).",
   prompt_system =
-    "You are a tool for helping ggplot2 users generate alt text in order to make their charts more accessible and SEO-friendly. You expect a ggplot2 object, look for relevant labels such as title, subtitle and annotations (if available) and return useful alt text. You only return alt text, no other comments or feedback is necessary.",
+    "You are a tool for helping ggplot2 users generate alt text in order to make their charts more accessible and SEO-friendly. You will be given a list of geoms used in the plot, the labels (like title, subtitle and annotations) and the data used to make the chart. Your job is to use that information to write alt text. You only return alt text, no other comments or feedback is necessary.",
   api_key = Sys.getenv("OPENAI_API_KEY"),
-  model = NULL,
+  model = "gpt-3.5-turbo-1106",
   temperature = 0,
   max_tokens = 2000,
   top_p = 1,
