@@ -133,17 +133,32 @@ alt_text_suggest(starwars_plot)
 
 # Contrast
 
+There are [some
+recommendations](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
+for setting foreground and background colours that provide enough
+contrast with the background. This library includes a function that
+checks if two colours are contrasting enough to use together.
+
+``` r
+contrast_check("purple", "white")
+```
+
+![](README_files/figure-gfm//unnamed-chunk-11.svg)<!-- -->
+
+You can set the colour of text to light or dark depending on, say, the
+colour of the background.
+
 You can use `contrast()` to automatically set the text colour so that
 it’s legible on your background.
 
 ``` r
-contrast("darkred") # returns white
+contrast_bg("darkred") # returns white
 ```
 
     ## [1] "white"
 
 ``` r
-contrast("yellow", dark_col = "#222222") # returns off-black
+contrast_bg("yellow", dark_col = "#222222") # returns off-black
 ```
 
     ## [1] "#222222"
@@ -159,7 +174,7 @@ ggplot(grid_data, aes(X, Y, fill = Z)) +
   geom_text(aes(label = Y, !!!autocontrast))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 # Todo
 

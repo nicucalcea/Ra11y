@@ -5,12 +5,12 @@
 #' @param colour The colour to check.
 #' @param light_col The light output colour. Defaults to white.
 #' @param dark_col The dark output colour. Defaults to black.
-#' @examples contrast("darkred") # returns white
-#' @examples contrast("yellow") # returns black
+#' @examples contrast_bg("darkred") # returns white
+#' @examples contrast_bg("yellow") # returns black
 #' @export
-#' @rdname contrast
+#' @rdname contrast_bg
 #' @importFrom farver get_channel
-contrast <- function(colour, light_col = "white", dark_col = "black") {
+contrast_bg <- function(colour, light_col = "white", dark_col = "black") {
   out   <- rep(dark_col, length(colour))
   light <- farver::get_channel(colour, "l", space = "hcl")
   out[light < 50] <- light_col
@@ -33,4 +33,4 @@ contrast <- function(colour, light_col = "white", dark_col = "black") {
 #' @rdname autocontrast
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 after_scale
-autocontrast <- ggplot2::aes(colour = ggplot2::after_scale(Ra11y::contrast(fill)))
+autocontrast <- ggplot2::aes(colour = ggplot2::after_scale(Ra11y::contrast_bg(fill)))
