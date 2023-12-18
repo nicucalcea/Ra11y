@@ -84,7 +84,7 @@ test_plot <- function(plot, test = c("cvd", "alt"), alt_text_loc = c("console"))
       if ("fill" %in% colnames(plot_colours)) {
         plot_colours_distinct <- dplyr::distinct(plot_colours) |>
           rowwise() |>
-          mutate(contrast_ratio = Ra11y::test_contrast(colour, fill),
+          mutate(contrast_ratio = Ra11y::contrast_ratio(colour, fill),
                  contrast_issue = contrast_ratio <= 4.5)
 
         if (any(plot_colours_distinct$contrast_issue)) {
