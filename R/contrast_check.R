@@ -90,7 +90,7 @@ contrast_check <- function(col_1, col_2) {
 
   if (any(ratio < col_results)) {
     cli::cli_h1("Contrast")
-    cli::cli_alert_danger(paste0("Your colours have a colour contrast of ", round(ratio, digits = 2), ":1, which may be below some types of text. Consult {.href [WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=", gsub("#", "", col_1), "&bcolor=", gsub("#", "", col_2), ")} for more details."))
+    cli::cli_alert_danger(paste0("Your colours have a colour contrast of ", round(ratio, digits = 2), ":1, which may be below recommendations for some types of text. Consult {.href [WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=", gsub("#", "", col_1), "&bcolor=", gsub("#", "", col_2), ")} for more details."))
     cli::cli_bullets(result)
   }
 }
