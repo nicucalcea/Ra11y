@@ -15,19 +15,19 @@
 #' @details Pass two colours and receive a contrast ratio. Courtesy of coloratio.
 #' @rdname contrast_ratio
 #' @importFrom grDevices colors
-contrast_ratio <- function(col_1, col_2) {
+contrast_ratio <- function(colour, fill) {
 
   if(
-    (!grepl("^#", col_1) & !col_1 %in% grDevices::colors() |
-     !grepl("^#", col_2) & !col_2 %in% grDevices::colors()) |
-    (grepl("^#", col_1) & !grepl("^#[0-9a-fA-F]{6}$", col_1) |
-     grepl("^#", col_2) & !grepl("^#[0-9a-fA-F]{6}$", col_2))
+    (!grepl("^#", colour) & !colour %in% grDevices::colors() |
+     !grepl("^#", fill) & !fill %in% grDevices::colors()) |
+    (grepl("^#", colour) & !grepl("^#[0-9a-fA-F]{6}$", colour) |
+     grepl("^#", fill) & !grepl("^#[0-9a-fA-F]{6}$", fill))
   ) {
     stop('Inputs must be in colors() if named, or of the hex form "#RRGGBB".\n')
   }
 
   # Convert colous to RGB and scale 0 to 1
-  d <- t(grDevices::col2rgb(c(col_1, col_2))) / 255
+  d <- t(grDevices::col2rgb(c(colour, fill))) / 255
 
   # Convert value
   d <- apply(
@@ -66,13 +66,13 @@ contrast_ratio <- function(col_1, col_2) {
 #' @importFrom purrr map2
 #' @importFrom cli cli_h1 cli_alert_danger cli_bullets
 #' @importFrom farver decode_colour encode_colour
-contrast_check <- function(col_1, col_2) {
+contrast_check <- function(colour, fill) {
 
   # Convert to hex codes if necessary
-  col_1 = farver::decode_colour(col_1) |> farver::encode_colour()
-  col_2 = farver::decode_colour(col_2) |> farver::encode_colour()
+  colour = farver::decode_colour(colour) |> farver::encode_colour()
+  fill = farver::decode_colour(fill) |> farver::encode_colour()
 
-  ratio <- Ra11y::contrast_ratio(col_1, col_2)
+  ratio <- Ra11y::contrast_ratio(colour, fill)
 
   col_results <- c(
     AA = 4.5,
@@ -90,7 +90,7 @@ contrast_check <- function(col_1, col_2) {
 
   if (any(ratio < col_results)) {
     cli::cli_h1("Contrast")
-    cli::cli_alert_danger(paste0("Your colours have a colour contrast of ", round(ratio, digits = 2), ":1, which may be below recommendations for some types of text. Consult {.href [WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=", gsub("#", "", col_1), "&bcolor=", gsub("#", "", col_2), ")} for more details."))
+    cli::cli_alert_danger(paste0("Your colours have a colour contrast of ", round(ratio, digits = 2), ":1, which may be below recommendations for some types of text. Consult {.href [WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=", gsub("#", "", colour), "&bcolor=", gsub("#", "", fill), ")} for more details."))
     cli::cli_bullets(result)
   }
 }

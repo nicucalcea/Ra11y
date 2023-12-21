@@ -4,7 +4,7 @@
 \alias{contrast_ratio}
 \title{#' @#' Test}
 \usage{
-contrast_ratio(col_1, col_2)
+contrast_ratio(colour, fill)
 }
 \arguments{
 \item{col1}{The first colour}

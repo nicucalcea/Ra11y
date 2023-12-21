@@ -68,31 +68,25 @@ test_plot <- function(plot, test = c("cvd", "alt"), alt_text_loc = c("console"))
 
 
   if ("contrast" %in% test) {
-
     # Retrieve all geoms in the plot
     plot_layers <- purrr::map(plot$layers, function(x) {x$constructor[[1]]})
+
     # Get the indices of text layers
-    plot_layers_text <- which(plot_layers %in% c("geom_text", "ggplot2::geom_text", "geom_label", "ggplot2::geom_label"))
+    plot_layers_text <- which(plot_layers %in% c("geom_label", "ggplot2::geom_label"))
 
     if (length(plot_layers_text) > 0) {
 
       # Get a df of colours and their fills
       plot_colours <- plot_build$data[[plot_layers_text]] |>
-        dplyr::select(tidyselect::any_of(c("colour", "fill")))
+        dplyr::select(tidyselect::any_of(c("colour", "fill"))) |>
+        dplyr::distinct()
 
       # Test if label colour is contrasting enough with its fill
       if ("fill" %in% colnames(plot_colours)) {
-        plot_colours_distinct <- dplyr::distinct(plot_colours) |>
-          rowwise() |>
-          mutate(contrast_ratio = Ra11y::contrast_ratio(colour, fill),
-                 contrast_issue = contrast_ratio <= 4.5)
+        purrr::pmap(plot_colours, Ra11y::contrast_check)
 
-        if (any(plot_colours_distinct$contrast_issue)) {
-          cli::cli_h1("Colour contrast")
-          cli::cli_alert_danger("There may be issues with colour contrast.")
-        }
+        # print(plot_colours)
       }
-
     }
   }
 }

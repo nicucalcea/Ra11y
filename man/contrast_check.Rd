@@ -4,7 +4,7 @@
 \alias{contrast_check}
 \title{Test text contrast for accessibility}
 \usage{
-contrast_check(col_1, col_2)
+contrast_check(colour, fill)
 }
 \arguments{
 \item{col1}{The first colour}

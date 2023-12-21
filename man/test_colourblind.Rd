@@ -27,7 +27,7 @@ Returns a message to the console if any colours used in a plot are potentially n
 Pass a vector of colours and find out if they are colour blind safe
 }
 \details{
-#' Test colours for colour blindness
+Test colours for colour blindness
 
 Pass a vector of colours and find out if they are colour blind safe
 
