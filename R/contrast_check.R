@@ -68,6 +68,9 @@ contrast_ratio <- function(colour, fill) {
 #' @importFrom farver decode_colour encode_colour
 contrast_check <- function(colour, fill) {
 
+  colour_original <- colour
+  fill_original <- fill
+
   # Convert to hex codes if necessary
   colour = farver::decode_colour(colour) |> farver::encode_colour()
   fill = farver::decode_colour(fill) |> farver::encode_colour()
@@ -90,7 +93,7 @@ contrast_check <- function(colour, fill) {
 
   if (any(ratio < col_results)) {
     cli::cli_h1("Contrast")
-    cli::cli_alert_danger(paste0("Your colours have a colour contrast of ", round(ratio, digits = 2), ":1, which may be below recommendations for some types of text. Consult {.href [WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=", gsub("#", "", colour), "&bcolor=", gsub("#", "", fill), ")} for more details."))
+    cli::cli_alert_danger(paste0("Your colours, ", colour_original, " and ", fill_original, ", have a contrast of ", round(ratio, digits = 2), ":1, which may be below recommendations for some types of text. Consult {.href [WebAIM](https://webaim.org/resources/contrastchecker/?fcolor=", gsub("#", "", colour), "&bcolor=", gsub("#", "", fill), ")} for more information."))
     cli::cli_bullets(result)
   }
 }
