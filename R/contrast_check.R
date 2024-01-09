@@ -54,6 +54,7 @@ contrast_ratio <- function(colour, fill) {
 #'
 #' @param col1 The first colour
 #' @param col2 The second colour
+#' @param levels What levels to check. Possible: c("AA", "AA Large", "AAA", "AAA Large"). Defaults to the (less strict) first two.
 #' @examples
 #' check_threshold("black", "white")
 #' check_threshold("yellow", "white")
@@ -66,7 +67,7 @@ contrast_ratio <- function(colour, fill) {
 #' @importFrom purrr map2
 #' @importFrom cli cli_h1 cli_alert_danger cli_bullets
 #' @importFrom farver decode_colour encode_colour
-contrast_check <- function(colour, fill) {
+contrast_check <- function(colour, fill, levels = c("AA", "AA Large")) {
 
   colour_original <- colour
   fill_original <- fill
@@ -83,6 +84,8 @@ contrast_check <- function(colour, fill) {
     AAA = 7,
     `AAA Large` = 4.5
   )
+
+  col_results <- col_results[levels]
 
   result <- purrr::map2(col_results, names(col_results), function(x, y) {
     return_text <- paste0(y, ": ", ifelse(ratio >= x, "Pass", "Fail"))
